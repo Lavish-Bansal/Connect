@@ -26,6 +26,59 @@ function EventPage() {
         }
     };
 
+    const handleToken = async (user_id) => {
+        console.log(`handleToken called with ${token}`);
+        // Fetching user_token cookie value in user_id
+        // const user_id = getUserToken();
+        const token = {
+
+        }
+
+        // console.log("Payment gateway cookie fetch - ", user_id);
+        try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/payment`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        token,
+                        user: { user_id },
+                        event: { event_id },
+                    }),
+                }
+            );
+            console.log("try");
+            const data = await response.json();
+            console.log(data);
+            if (data.status === "success") {
+                alert("Payment Successful");
+                router.push("/users/dashboard");
+            }
+            else if(data.status === "alreadyregistered"){
+                alert("User is already registered.");
+                router.push("/users/dashboard");
+            }
+            else {
+                console.error(`Failed with status code ${response.status}`);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleRegister = () =>{
+        // if(eventData.price == 0){
+        //     console.log("Free Event Registration!");
+        //     handleToken(eventId, userId);
+        // }else{
+            console.log(router.query);
+            router.push(`/event/${eventId}/payment`)
+        // }
+    }
+
     // function that fetches the event data on load
     const fetchEvent = async () => {
         try {
@@ -134,11 +187,7 @@ function EventPage() {
                                 </div>
                                 <div className="text-left lg:text-right mt-4 lg:mt-0">
                                     <button
-                                        onClick={() =>
-                                            router.push(
-                                                `/event/${eventId}/paymen`
-                                            )
-                                        }
+                                        onClick={handleRegister}
                                         className={`px-6 py-2 ${
                                             isUserRegistered
                                                 ? "bg-gray-700 hover:bg-gray-800"
@@ -182,7 +231,7 @@ function EventPage() {
                                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
                                         About the Event
                                     </h3>
-                                    {Array(3)
+                                    {Array(1)
                                         .fill()
                                         .map((_, index) => (
                                             <p

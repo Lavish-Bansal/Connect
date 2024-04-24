@@ -71,6 +71,7 @@ const signIn = async (req, res) => {
 
 // route - http://localhost:5000/user/signup
 const signUp = async (req, res) => {
+    console.log("signup");
     const Email = req.body.email;
 
     User.find({ email: Email }, async function (err, docs) {
@@ -163,6 +164,7 @@ const verifyOtp = async (req, res) => {
     const Email = req.body.email;
     const name = req.body.username;
     const regNumber = req.body.regNumber;
+    const profileImage = req.body.profileImage;
 
     OtpAuth.find({ email: Email }, async function (err, docs) {
         if (docs.length === 0) {
@@ -185,6 +187,7 @@ const verifyOtp = async (req, res) => {
                     username: name,
                     email: Email,
                     contactNumber: number,
+                    profileImage: profileImage,
                 });
 
                 newUser.save((error, success) => {

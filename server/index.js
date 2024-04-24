@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 
 const userRouter = require("./routes/authRoutes");
 const dashboardRouter = require("./routes/userDashboardRoutes");
+const paymentRouter = require("./routes/paymentRoute");
 const adminRouter = require("./routes/adminRoutes");
 const eventRouter = require("./routes/eventRoutes");
 
@@ -36,6 +37,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
+app.use("/payment", paymentRouter);
 app.use("/user", userRouter);
 app.use("/user", dashboardRouter);
 

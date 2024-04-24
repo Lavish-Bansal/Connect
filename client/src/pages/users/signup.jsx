@@ -26,6 +26,7 @@ export default function signup({ userIdCookie }) {
     const [contactNumber, setContactNumber] = useState("");
     const [regNumber, setRegNumber] = useState("");
     const [username, setUsername] = useState("");
+    const [profileImage, setProfileImage] = useState("");
     const router = useRouter();
 
     useEffect(() => {
@@ -95,6 +96,7 @@ export default function signup({ userIdCookie }) {
                         email: email,
                         regNumber: regNumber.toUpperCase(),
                         username: username,
+                        profileImage: profileImage,
                     }),
                 }
             );
@@ -102,7 +104,7 @@ export default function signup({ userIdCookie }) {
             if (response.status === 200) {
                 setMessage({ errorMsg: "", successMsg: data.msg });
                 console.log(data);
-                setStep(3); 
+                setStep(3);
 
                 setUserToken(data.user_id);
             } else {
@@ -249,6 +251,25 @@ export default function signup({ userIdCookie }) {
                                         }
                                     />
                                 </div>
+
+                                {/* <div>
+                                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                                        Upload Image
+                                    </label>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        id="userProfile"
+                                        name="userProfile"
+                                        value={contactNumber}
+                                        autoComplete="none"
+                                        required
+                                        className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                                        onChange={(e) =>
+                                            setProfileImage(e.target.value)
+                                        }
+                                    />
+                                </div> */}
 
                                 <button
                                     type="submit"

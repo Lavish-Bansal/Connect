@@ -15,8 +15,9 @@ export default function NavBar() {
         // If cookie was manually removed from browser
         if (!userIdCookie) {
             console.error("No cookie found! Please signin");
+            return;
             // redirect to signin
-            router.push("/users/signin");
+            // router.push("/users/signin");
         }
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/user/details`,

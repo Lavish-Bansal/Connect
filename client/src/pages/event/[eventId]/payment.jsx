@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 
 export default function payment() {
-    
+
     const router = useRouter();
 
     // const [eventDetails, setEventDetails] = useState({ name: "", price: "" });
@@ -75,6 +75,12 @@ export default function payment() {
     const handleToken = async (event, token, addresses) => {
         // Fetching user_token cookie value in user_id
         const user_id = getUserToken();
+        console.log("user_id ", user_id);
+        console.log("token ", token);
+        console.log("addresses ", addresses);
+        console.log("product ", product);
+        console.log("event", event);
+        console.log("event_id", event_id);
 
         // console.log("Payment gateway cookie fetch - ", user_id);
         try {
@@ -94,6 +100,7 @@ export default function payment() {
                     }),
                 }
             );
+            console.log(response);
             const data = await response.json();
             console.log(data);
             if (data.status === "success") {
@@ -111,8 +118,6 @@ export default function payment() {
             console.error(error);
         }
     };
-
-    
 
     return (
         <div className="pt-20 lg:pt-8">
