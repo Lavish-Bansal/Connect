@@ -1,7 +1,7 @@
-import FeaturesZigZag from "@/components/Landing_Page_partials/FeaturesZigZag";
 import Header from "@/components/Landing_Page_partials/Header";
 import HeroHome from "@/components/Landing_Page_partials/HeroHome";
-import Dash from "@/components/Landing_Page_partials/Dash";
+import About from "@/components/Landing_Page_partials/About";
+import Footer from "@/components/Landing_Page_partials/Footer";
 import React from "react";
 
 function LandingPage() {
@@ -12,8 +12,8 @@ function LandingPage() {
 
                 <main className="grow">
                     <HeroHome />
-                    <FeaturesZigZag />
-                    <Dash />
+                    <About />
+                    <Footer />
                 </main>
             </div>
         </div>
