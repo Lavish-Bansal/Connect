@@ -9,11 +9,6 @@ dotenv.config();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
-//production
-// const stripe = require("stripe")(
-//   "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"
-// );
-
 // test
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 
@@ -31,8 +26,8 @@ const payment = async (req, res) => {
             source: token.id,
         });
 
-        console.log(customer);
-
+        // console.log(customer);
+s
         charge = await stripe.charges.create(
             {
                 amount: product.price * 100,
@@ -56,7 +51,7 @@ const payment = async (req, res) => {
             }
         );
 
-        console.log("Charge: ", { charge });
+        // console.log("Charge: ", { charge });
         status = "success";
     } catch (error) {
         console.log(error);
@@ -65,7 +60,7 @@ const payment = async (req, res) => {
 
     // collecting ticket details
     User.find({ user_token: user.user_id }, async function (err, docs) {
-        console.log(docs);
+        // console.log(docs);
         if (docs.length !== 0) {
             var Details = {
                 email: docs[0].email,
@@ -78,7 +73,7 @@ const payment = async (req, res) => {
                 zip: token.shipping_address_zip,
             };
 
-            console.log("All details before email: ", Details);
+            // console.log("All details before email: ", Details);
 
             try {
                 Event.findOne(
