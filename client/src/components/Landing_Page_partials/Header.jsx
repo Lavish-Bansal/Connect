@@ -7,19 +7,14 @@ const Navbar = () => {
 
     const links = [
         {
-            id: 1,
-            link: "/admin/auth",
-            text: "Event Manager"
+            id: 3,
+            link: "#",
+            text: "About"
         },
         {
             id: 2,
             link: "#",
             text: "Learn More"
-        },
-        {
-            id: 3,
-            link: "#",
-            text: "About"
         },
         {
             id: 4,
@@ -30,6 +25,11 @@ const Navbar = () => {
             id: 5,
             link: "/users/signin",
             text: "Log In"
+        },
+        {
+            id: 1,
+            link: "/admin/auth",
+            text: "Event Manager"
         },
     ];
 

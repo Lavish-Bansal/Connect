@@ -76,7 +76,7 @@ export default function NavBar() {
                             </li>
                             <li
                                 onClick={() =>
-                                    router.push("/users/past_events")
+                                    router.push("/event/past_events")
                                 }
                                 className="mr-4 cursor-pointer"
                             >
