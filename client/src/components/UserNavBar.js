@@ -3,6 +3,8 @@ import { getUserToken } from "@/utils/getUserToken";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 export default function NavBar() {
     const router = useRouter();
@@ -47,6 +49,24 @@ export default function NavBar() {
         fetchUserData();
     }, []);
 
+    const links = [
+        {
+            id: 1,
+            link: "/users/dashboard",
+            text: "Dashboard"
+        },
+        {
+            id: 2,
+            link: "/users/past_events",
+            text: "Past Events"
+        },
+        {
+            id: 3,
+            link: "#",
+            text: "About Us"
+        },
+    ];
+
     return (
         <div className="mb-[8vh]">
             <header className="bg-[color:var(--white-color)] fixed top-0 z-50 w-full shadow-md text-[color:var(--darker-secondary-color)]">
@@ -76,7 +96,7 @@ export default function NavBar() {
                             </li>
                             <li
                                 onClick={() =>
-                                    router.push("/event/past_events")
+                                    router.push("/users/past_events")
                                 }
                                 className="mr-4 cursor-pointer"
                             >
