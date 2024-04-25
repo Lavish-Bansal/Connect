@@ -11,7 +11,6 @@ app.use(cookieParser());
 
 // test
 const stripe = require("stripe")(process.env.STRIPE_KEY);
-
 const uuid = require("uuid").v4;
 
 const payment = async (req, res) => {
