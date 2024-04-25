@@ -96,9 +96,9 @@ function UserDashboard() {
       <AdminNavBar />
       <div className="flex m-auto">
         <div className="flex mx-auto container ">
-          <div className="flex m-auto gap-4 lg:gap-8 overflow-y-hidden w-full h-[calc(88vh)]">
+          <div className="flex m-auto overflow-y-hidden w-full h-[calc(88vh)]">
             {/* Render the regular filter for medium screens and above */}
-            <div className="hidden md:flex flex-col p-4 sticky top-0 w-1/6 md:w-1/4">
+            <div style={{backgroundColor: "beige"}} className="hidden md:flex flex-col p-4 sticky top-0 w-1/6 md:w-1/4">
               <Dashboard_Filter
                 filterOptions={filterOptions}
                 setFilterOptions={setFilterOptions}
@@ -121,9 +121,10 @@ function UserDashboard() {
               </div>
             )}
             {/* Render the main content of the dashboard */}
-            <div className="flex w-full md:w-3/4 mx-auto justify-between container">
+            <div style={{backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundImage: 'url(https://www.baycollege.edu/_resources/images/on-campus/events/theater-stage-lights.jpg)'}} className="flex w-full md:w-3/4 mx-auto justify-between container">
               <div className="p-4 overflow-y-auto w-full h-[calc(80vh)]">
-                <h2 className="text-lg font-medium mb-4">Events</h2>
+              <h2 style={{ fontSize: 30, color: "#fff", fontWeight: 1000 }} className="text-lg font-medium mb-4 mt-4">
+                Events</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {filteredEvents.length === 0 ? (
                     <p>No events yet</p>

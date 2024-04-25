@@ -41,7 +41,7 @@ export default function Dropdown({ adminData }) {
                 onClick={toggleDropdown}
                 className="flex items-center justify-center bg-[color:var(--darker-secondary-color)] text-white text-sm font-medium rounded-md w-28 h-10 focus:outline-none"
             >
-                <span className="mr-2">Admin</span>
+                <span style={{fontSize: 16}} className="mr-2">Admin</span>
                 <FaAngleDown
                     className={`h-4 w-4 ${
                         showDropdown ? "transform rotate-180" : ""
@@ -49,7 +49,7 @@ export default function Dropdown({ adminData }) {
                 />
             </button>
             {showDropdown && (
-                <div className="absolute min-w-[231px] right-0 bg-white rounded-md overflow-hidden shadow-lg z-10">
+                <div style={{backgroundColor: "#f05454"}} className="absolute min-w-[231px] right-0 bg-white rounded-md overflow-hidden shadow-lg z-10">
                     <div className="">
                         <div className="px-4 py-2 cursor-default hover:bg-[color:var(--primary-color)]">
                             <div className="text-gray-800 font-medium">

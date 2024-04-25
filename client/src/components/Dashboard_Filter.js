@@ -32,10 +32,10 @@ function Dashboard_Filter({
     return (
         // Add filter options to the DOM element
         <div className="border-red-800">
-            <h2 className="text-lg font-medium mb-2">Filter Options</h2>
+            <h2 style={{color: "#f05454", fontWeight: 1000, marginBottom: 15}} className="text-lg font-medium mb-2">Filter Options</h2>
             <form className="flex flex-col gap-y-3">
                 {/* Input to search through keyword */}
-                <div className="mb-2">
+                <div style={{color: "#f05454", fontWeight: 1000}} className="mb-2">
                     <label htmlFor="keyword" className="font-medium block mb-1">
                         Keyword
                     </label>
@@ -50,7 +50,7 @@ function Dashboard_Filter({
                     />
                 </div>
                 {/* Selection menu to choose a category */}
-                <div className="mb-2">
+                <div style={{color: "#f05454", fontWeight: 1000}} className="mb-2">
                     <label
                         htmlFor="category"
                         className="font-medium block mb-1"
@@ -63,6 +63,7 @@ function Dashboard_Filter({
                         value={filterOptions.category}
                         onChange={handleInputChange}
                         className="filterInput"
+                        style={{color: "black"}} 
                     >
                         <option value="">Select a category...</option>
                         <option value="category1">Technical</option>
@@ -71,7 +72,7 @@ function Dashboard_Filter({
                     </select>
                 </div>
                 {/* Input field to filter through a date range */}
-                <div className="mb-2">
+                <div style={{color: "#f05454", fontWeight: 1000}} className="mb-2">
                     <label
                         htmlFor="dateRange"
                         className="font-medium block mb-1"
@@ -85,12 +86,13 @@ function Dashboard_Filter({
                         value={filterOptions.dateRange}
                         onChange={handleInputChange}
                         className="filterInput"
+                        style={{color: "black"}} 
                     />
                 </div>
             </form>
-            <button
+            <button style={{backgroundColor: "#f05454", fontWeight: 1000}} 
                 onClick={handleFilterClear}
-                className="w-full mt-2 text-white py-2 px-4 rounded-lg bg-gray-700 hover:bg-gray-800"
+                className="w-full mt-2 text-white py-2 px-4 rounded-lg "
             >
                 Clear Filters
             </button>
