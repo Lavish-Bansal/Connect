@@ -30,31 +30,39 @@ const features = [
 
 export default function About() {
   return (
-    <div className='bg-white'>
+    <div style={{marginTop:"0%"}} className='bg-white'>
       <div className='max-w-2xl mx-auto py-24 px-4 grid items-center grid-cols-1 gap-y-16 gap-x-8 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8 lg:grid-cols-2'>
-        <div className='grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8'>
+        <div className='grid grid-cols-2 grid-rows-3 gap-4 sm:gap-6 lg:gap-8'>
           <img
             loading='lazy'
-            src='https://images.theconversation.com/files/405642/original/file-20210610-15-145vawv.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop'
+            src='/img/fifthImg.jpeg'
             alt='Walnut card tray with white powder coated steel divider and 3 punchout holes.'
-            className='bg-gray-100 rounded-lg'
+            className='bg-gray-100 rounded-lg h-full'
           />
           <img
             loading='lazy'
-            src='https://www.chestercountyhospital.org/-/media/images/chestercounty/blog/2022/january/220119blood%20donation.ashx'
+            src='/img/sixthImg.jpg'
             alt='Top down view of walnut card tray with embedded magnets and card groove.'
+            className='bg-gray-100 rounded-lg h-full'
+          />
+          <img
+            loading='lazy'
+            src='/img/fourthImg.jpg'
             className='bg-gray-100 rounded-lg'
           />
           <img
             loading='lazy'
-            src='https://melanmag.com/wp-content/uploads/2017/06/Feature-pic-DONATION-Rugby-star-Maggie-Alphonsi-giving-blood-for-the-first-time.jpeg'
-            alt='Side of walnut card tray with card groove and recessed card area.'
+            src='/img/firstImg.jpg'
             className='bg-gray-100 rounded-lg'
           />
           <img
             loading='lazy'
-            src='https://cdn.24.co.za/files/Cms/General/d/1693/8d5ff609c7cf47e7a977f24912319e12.jpg'
-            alt='Walnut card tray filled with cards and card angled in dedicated groove.'
+            src='/img/images.webp'
+            className='bg-gray-100 rounded-lg'
+          />
+          <img
+            loading='lazy'
+            src='/img/thirdImg.jpg'
             className='bg-gray-100 rounded-lg'
           />
         </div>

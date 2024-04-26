@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
+import Popup_Filter from "@/components/Popup_Filter";
 
 function UserDashboard() {
     const router = useRouter();
@@ -94,7 +95,7 @@ function UserDashboard() {
             <div style={{ marginTop: -32 }}>
                 <Header />
             </div>
-            <div className="flex m-auto">
+            <div className="flex m-auto w-full">
                 <div className="flex mx-auto container ">
                     <div className="flex m-auto overflow-y-hidden w-full h-[calc(88vh)]">
                         {/* Render the regular filter for medium screens and above */}
@@ -122,7 +123,7 @@ function UserDashboard() {
                         )}
                         {/* Render the main content of the dashboard */}
                         <div style={{backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundImage: 'url(https://www.baycollege.edu/_resources/images/on-campus/events/theater-stage-lights.jpg)'}} className="flex w-full md:w-3/4 mx-auto justify-between container">
-                            <div className="p-4 overflow-y-auto w-full h-[calc(80vh)]">
+                            <div className="p-4 overflow-y-auto w-full h-[calc(90vh)]">
                             <h2 style={{ fontSize: 30, color: "#fff", fontWeight: 1000 }} className="text-lg font-medium mb-4 mt-4">
                                     Events
                                 </h2>

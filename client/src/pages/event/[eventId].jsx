@@ -73,14 +73,18 @@ function EventPage() {
         // if(eventData.price == 0){
         //     console.log("Free Event Registration!");
         //     handleToken(eventId, userId);
-        // }else{
-            console.log(router.query);
+
+        if(!userId){
+            alert("Please Signup/Signin to Register");
+            router.push('/');
+        }
+        else
             router.push(`/event/${eventId}/payment`)
-        // }
     }
 
     // function that fetches the event data on load
     const fetchEvent = async () => {
+        console.log(userId)
         try {
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/event/getevent`,
