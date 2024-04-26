@@ -90,7 +90,7 @@ function UserDashboard() {
     };
 
     return (
-        <div className="pt-20 lg:pt-8 overflow-y-hidden bg-[color:var(--primary-color)]">
+        <div className="pt-20 lg:pt-8 overflow-visible bg-[color:var(--primary-color)]">
             <UserNavBar />
             <div className="flex m-auto">
                 <div className="flex mx-auto container ">
@@ -119,9 +119,9 @@ function UserDashboard() {
                             </div>
                         )}
                         {/* Render the main content of the dashboard */}
-                        <div style={{backgroundImage: 'url(https://www.travenix.com/wp-content/uploads/2018/01/mood-indigo.jpg)'}} className="flex w-full md:w-3/4 mx-auto justify-between container">
-                            <div className="p-4 overflow-y-auto w-full h-[calc(80vh)]">
-                                <h1 style={{color: "##fff", fontWeight: 1000, fontSize: 30}} className="text-lg font-medium mb-4">
+                        <div style={{backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundImage: 'url(https://www.baycollege.edu/_resources/images/on-campus/events/theater-stage-lights.jpg)'}}  className="flex w-full md:w-3/4 mx-auto justify-between container">
+                            <div className="p-4 overflow-y-auto w-full h-[calc(90vh)]">
+                                <h1 style={{color: "#fff", fontWeight: 1000, fontSize: 30}} className="text-lg font-medium mb-4 mt-4 text-center">
                                     Events
                                 </h1>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

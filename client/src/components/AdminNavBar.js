@@ -58,7 +58,7 @@ export default function NavBar() {
     ];
 
     return (
-        <div style={{ marginTop: -32, height: 74, backgroundColor: "#f05454", position: "sticky" }} className="flex justify-between items-center w-full h-20 px-4 text-white fixed nav">
+        <div style={{ marginTop: -32, height: 74, backgroundColor: "#f05454", position: "relative" }} className="flex justify-between items-center w-full h-20 px-4 text-white fixed nav">
             <div
                 style={{ display: "flex" }}>
                 <div onClick={() => router.push("/admin/dashboard")}
@@ -71,7 +71,7 @@ export default function NavBar() {
                     alt="Logo"
                     className="h-8 w-8"
                 />
-                </div>        
+                </div>
                 <h1 style={{ fontFamily: "Courier New, Courier, monospace" }} className="nav-links px-4 cursor-pointer capitalize font-medium text-gray-500 hover:scale-105 text-white-500 duration-200 link-underline">
                     <Link legacyBehavior href="/admin/dashboard">
                         <a
