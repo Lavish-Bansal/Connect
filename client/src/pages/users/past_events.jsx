@@ -31,7 +31,7 @@ function UserDashboard() {
       const today = moment();
       const filteredArray = data.filter((item) => {
         const eventDate = moment(item.date, "DD/MM/YYYY");
-        return eventDate.isSameOrAfter(today);
+        return eventDate.isBefore(today);
       });
       setAllEvents(filteredArray);
     } catch (error) {
@@ -68,7 +68,7 @@ function UserDashboard() {
         }
       }
 
-      // Check if price filter matches
+    //   Check if price filter matches
       // if (
       //     event.price < filterOptions.price[0] ||
       //     event.price > filterOptions.price[1]
@@ -138,7 +138,7 @@ function UserDashboard() {
                   style={{ color: "#fff", fontWeight: 1000, fontSize: 30 }}
                   className="text-lg font-medium mb-4 mt-4 text-center"
                 >
-                  Events
+                  Past Events
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {filteredEvents.length === 0 ? (

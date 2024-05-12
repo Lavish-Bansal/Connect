@@ -32,7 +32,7 @@ export default function About() {
   return (
     <div style={{marginTop:"0%"}} className='bg-white'>
       <div className='max-w-2xl mx-auto py-24 px-4 grid items-center grid-cols-1 gap-y-16 gap-x-8 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8 lg:grid-cols-2'>
-        <div className='grid grid-cols-2 grid-rows-3 gap-4 sm:gap-6 lg:gap-8'>
+        <div className='grid grid-cols-2 grid-rows-3 gap-4 sm:gap-6 lg:gap-8' id="about">
           <img
             loading='lazy'
             src='/img/fifthImg.jpeg'

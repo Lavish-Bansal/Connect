@@ -8,13 +8,8 @@ const Navbar = () => {
     const links = [
         {
             id: 3,
-            link: "/about/aboutus",
+            link: "#about",
             text: "About"
-        },
-        {
-            id: 2,
-            link: "#",
-            text: "Learn More"
         },
         {
             id: 4,

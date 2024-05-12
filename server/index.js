@@ -9,6 +9,9 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
 const userRouter = require("./routes/authRoutes");
 const dashboardRouter = require("./routes/userDashboardRoutes");
 const paymentRouter = require("./routes/paymentRoute");

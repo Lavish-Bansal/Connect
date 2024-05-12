@@ -143,9 +143,21 @@ const deleteEvent = async (req, res) => {
     res.status(200).send({ msg: "success" });
 };
 
+const uploadImage = async (req, res) =>{
+    const { base64 } = req.body;
+
+    try{
+        res.status(200).send({msg: "success"});
+    }
+    catch(err){
+        res.status(400).send({ msg: "Error uploading event", error: err });
+    }
+}
+
 module.exports = {
     postEvent,
     allEvents,
     particularEvent,
-    deleteEvent
+    deleteEvent,
+    uploadImage
 }

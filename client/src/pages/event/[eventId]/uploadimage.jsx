@@ -1,10 +1,44 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const ImageUpload = () => {
+  const router = useRouter();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [mediaStream, setMediaStream] = useState(null);
   const [capturedImageDataURL, setCapturedImageDataURL] = useState("null");
+  const eventId = router.query.eventId;
+
+  const handleUpload = async () => {
+    if (capturedImageDataURL === "null") {
+      alert("Please upload the image first");
+      return;
+    }
+
+    console.log(capturedImageDataURL);
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/event/studentimages`,
+      {
+        method: "POST",
+        crossDomain: "true",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin" : '*',
+        },
+        body: JSON.stringify({
+          base64: capturedImageDataURL,
+        }),
+      }
+    );
+
+    if (response.status === 200) {
+      router.push(`/event/${eventId}/payment`);
+    } else {
+      console.error(`Failed with status code ${response.status}`);
+      alert("Please try after sometime");
+    }
+  };
 
   useEffect(() => {
     const enableVideoStream = async () => {
@@ -55,6 +89,7 @@ const ImageUpload = () => {
         height={300}
         alt="Captured Image"
       />
+      <button onClick={handleUpload}>Upload Image</button>
     </div>
   );
 };
