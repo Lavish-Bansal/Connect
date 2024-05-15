@@ -107,10 +107,8 @@ export default function signin({ userIdCookie }) {
     return (
         <div 
         style={{ backgroundColor: "beige",
-            backgroundImage:`url('/img/frontImg.jpeg')`,
+            backgroundImage:`url('https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`,
             height: "100vh",
-            // backgroundRepeat: "no-repeat",
-            // width: "100vw"
         }}
         >
             <FiArrowLeft
@@ -187,7 +185,7 @@ export default function signin({ userIdCookie }) {
                 )}
 
                 <div style={{display: "flex", justifyContent: "center", }}>
-                <div className="bg-white p-5 rounded-lg mt-2" style={{ height: "83vh", width: "28vw"}}>
+                <div className="bg-white p-5 rounded-lg mt-2" style={{ backgroundImage: `url('https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=600')`,height: "83vh", width: "28vw"}}>
                 <div className="text-center text-3xl font-bold">Signin Page</div>
 
                     {

@@ -70,10 +70,8 @@ export default function signin({ adminIdCookie }) {
     <div
       style={{
         backgroundColor: "beige",
-        backgroundImage: `url('/img/frontImg.jpeg')`,
+        backgroundImage: `url('https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`,
         height: "100vh",
-        // backgroundRepeat: "no-repeat",
-        height: "100vh"
       }}
     >
       <FiArrowLeft
@@ -83,7 +81,7 @@ export default function signin({ adminIdCookie }) {
         style={{ marginLeft: 10, height: 35, width: 40, color: "red" }}
       />
 
-      <div className="max-w-3xl mx-auto mt-10" style={{ width: "35vw" }}>
+      <div className="max-w-3xl mx-auto mt-10" style={{ width: "35vw", filter: 'blur(0px)', position: "relative" }}>
         <div className="flex items-center justify-center"></div>
 
         {message.errorMsg && (
@@ -99,13 +97,13 @@ export default function signin({ adminIdCookie }) {
         )}
 
         <div style={{ display: "flex", justifyContent: "center", }}>
-          <div className="bg-white p-5 rounded-lg mt-2" style={{ height: "83vh", width: "28vw" }}>
+          <div className="bg-white p-5 rounded-lg mt-2" style={{ backgroundImage: `url('https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=600')`,height: "83vh", width: "28vw" }}>
             <div className="text-center text-2xl font-bold">
               Admin Authentication Page
             </div>
             {step === 1 && (
               <form onSubmit={handleSubmit}>
-                <label style={{ marginLeft: 10, marginBottom: 18, marginTop: 30, font: "icon", color: "black" }} className="block mb-2 text-sm font-medium text-gray-700">
+                <label style={{ marginLeft: 10, marginBottom: 18, marginTop: 30, font: "icon" }} className="block mb-2 text-sm font-medium text-gray-700">
                   Enter your Registered Email address
                 </label>
                 <input
