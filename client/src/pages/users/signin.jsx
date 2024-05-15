@@ -105,15 +105,22 @@ export default function signin({ userIdCookie }) {
     };
 
     return (
-        <div className="m-2">
+        <div 
+        style={{ backgroundColor: "beige",
+            backgroundImage:`url('/img/frontImg.jpeg')`,
+            height: "100vh",
+            // backgroundRepeat: "no-repeat",
+            // width: "100vw"
+        }}
+        >
             <FiArrowLeft
                 onClick={() => router.push("/")}
                 size={24}
                 className="cursor-pointer"
+                style={{ marginLeft: 10, height: 35, width: 40, color: "red" }}
             />
-          <div className="text-center text-3xl font-bold">Signin Page</div>
 
-            <div className="max-w-3xl mx-auto mt-10">
+            <div className="max-w-3xl mx-auto mt-10" style={{width: "35vw"}}>
                 <div className="flex items-center justify-center">
                     {/* <div
                         className={`w-full h-24 lg:h-fit ${
@@ -179,11 +186,14 @@ export default function signin({ userIdCookie }) {
                     </h1>
                 )}
 
-                <div className="bg-white p-5 rounded-lg mt-2">
+                <div style={{display: "flex", justifyContent: "center", }}>
+                <div className="bg-white p-5 rounded-lg mt-2" style={{ height: "83vh", width: "28vw"}}>
+                <div className="text-center text-3xl font-bold">Signin Page</div>
+
                     {
                         step === 1 && (
                             <form onSubmit={handleVerifyEmail}>
-                                <label className="block mb-2 text-sm font-medium text-gray-700">
+                            <label style={{marginLeft: 10, marginBottom: 18, marginTop: 30, font: "icon", color: "black" }} className="block mb-2 text-sm font-medium text-gray-700">
                                     Enter your Registered Email address
                                 </label>
                                 <input
@@ -191,13 +201,15 @@ export default function signin({ userIdCookie }) {
                                     id="email"
                                     name="email"
                                     value={email}
-                                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-full"
+                                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg"
                                     onChange={(e) => setEmail(e.target.value)}
+                                    style={{width: "24vw"}}
                                 />
 
                                 <button
                                     type="submit"
                                     className="mt-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]"
+                                    style={{marginLeft: 10, marginTop: 14}}
                                 >
                                     Verify
                                 </button>
@@ -208,7 +220,7 @@ export default function signin({ userIdCookie }) {
                         step === 2 && (
                             <form onSubmit={handleSubmit}>
                                 <div>
-                                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                                    <label style={{marginLeft: 10, }} className="block mb-2 text-sm font-medium text-gray-700">
                                         Enter Verification Code
                                     </label>
 
@@ -220,6 +232,7 @@ export default function signin({ userIdCookie }) {
                                         required
                                         value={otp}
                                         className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                                        style={{width: "24vw"}}
                                         onChange={(e) => setOtp(e.target.value)}
                                     />
                                 </div>
@@ -260,6 +273,7 @@ export default function signin({ userIdCookie }) {
                             </div>
                         )
                     }
+                </div>
                 </div>
             </div>
         </div>

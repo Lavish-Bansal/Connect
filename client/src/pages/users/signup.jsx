@@ -114,15 +114,21 @@ export default function signup({ userIdCookie }) {
     };
 
     return (
-        <div className="m-2">
+        <div 
+        style={{ backgroundColor: "beige",
+            backgroundImage:`url('/img/frontImg.jpeg')`,
+            height: "100vh",
+            // backgroundRepeat: "no-repeat",
+            height: "100vh"
+        }}
+        >
             <FiArrowLeft
                 onClick={() => router.push("/")}
                 size={24}
                 className="cursor-pointer"
+                style={{ marginLeft: 10, height: 35, width: 40, color: "red" }}
             />
-            <div className="text-center text-3xl font-bold">Signup Page</div>
-
-            <div className="max-w-3xl mx-auto mt-10">
+            <div className="max-w-3xl mx-auto mt-10" style={{width: "35vw"}}>
                 <div className="flex items-center justify-center">
                 </div>
 
@@ -138,12 +144,14 @@ export default function signup({ userIdCookie }) {
                     </h1>
                 )}
 
-                <div className="bg-white p-5 rounded-lg mt-2">
+                <div style={{display: "flex", justifyContent: "center", }}>
+                <div className="bg-white p-5 rounded-lg mt-2" style={{ height: "83vh", width: "28vw"}}>
+                <div className="text-center text-3xl font-bold">Signup Page</div>
                     {
                         /* Step 1 Content */
                         step === 1 && (
                             <form onSubmit={handleVerifyEmail}>
-                                <label className="block mb-2 text-sm font-medium text-gray-700">
+                                <label style={{marginLeft: 10, marginBottom: 18, marginTop: 30, font: "icon", color: "black" }} className="block mb-2 text-sm font-medium text-gray-700">
                                     Enter your email address
                                 </label>
                                 <input
@@ -151,12 +159,14 @@ export default function signup({ userIdCookie }) {
                                     id="email"
                                     name="email"
                                     value={email}
-                                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-full"
+                                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg"
                                     onChange={(e) => setEmail(e.target.value)}
+                                    style={{width: "24vw"}}
                                 />
                                 <button
                                     type="submit"
                                     className="mt-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]"
+                                    style={{marginLeft: 10, marginTop: 14}}
                                 >
                                     Verify
                                 </button>
@@ -168,7 +178,7 @@ export default function signup({ userIdCookie }) {
                         step === 2 && (
                             <form onSubmit={handleSubmit}>
                                 <div>
-                                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                                    <label style={{marginLeft: 10, marginTop: 20, }} className="block mb-2 text-sm font-medium text-gray-700">
                                         Your email address
                                     </label>
                                     <input
@@ -178,12 +188,13 @@ export default function signup({ userIdCookie }) {
                                         defaultValue={email}
                                         disabled
                                         className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                                        style={{width: "24vw"}}
                                         // onChange={(e) => setOtp(e.target.value)}
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                                    <label style={{marginLeft: 10, }} className="block mb-2 text-sm font-medium text-gray-700">
                                         Enter Verification Code
                                     </label>
                                     <input
@@ -194,12 +205,13 @@ export default function signup({ userIdCookie }) {
                                         required
                                         value={otp}
                                         className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                                        style={{width: "24vw"}}
                                         onChange={(e) => setOtp(e.target.value)}
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                                    <label style={{marginLeft: 10, }} className="block mb-2 text-sm font-medium text-gray-700">
                                         Full Name
                                     </label>
                                     <input
@@ -210,6 +222,7 @@ export default function signup({ userIdCookie }) {
                                         autoComplete="none"
                                         required
                                         className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                                        style={{width: "24vw"}}
                                         onChange={(e) =>
                                             setUsername(e.target.value)
                                         }
@@ -217,7 +230,7 @@ export default function signup({ userIdCookie }) {
                                 </div>
 
                                 <div>
-                                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                                    <label style={{marginLeft: 10, }} className="block mb-2 text-sm font-medium text-gray-700">
                                         Enter Registration Number
                                     </label>
                                     <input
@@ -228,6 +241,7 @@ export default function signup({ userIdCookie }) {
                                         autoComplete="none"
                                         required
                                         className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                                        style={{width: "24vw"}}
                                         onChange={(e) =>
                                             setRegNumber(e.target.value)
                                         }
@@ -235,7 +249,7 @@ export default function signup({ userIdCookie }) {
                                 </div>
 
                                 <div>
-                                    <label className="block mb-2 text-sm font-medium text-gray-700">
+                                    <label style={{marginLeft: 10, }} className="block mb-2 text-sm font-medium text-gray-700">
                                         Enter Contact Number
                                     </label>
                                     <input
@@ -246,6 +260,7 @@ export default function signup({ userIdCookie }) {
                                         autoComplete="none"
                                         required
                                         className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                                        style={{width: "24vw"}}
                                         onChange={(e) =>
                                             setContactNumber(e.target.value)
                                         }
@@ -272,6 +287,7 @@ export default function signup({ userIdCookie }) {
                                 </div> */}
 
                                 <button
+                                    style={{marginLeft: 10, }}
                                     type="submit"
                                     className="mt-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]"
                                 >
@@ -308,6 +324,7 @@ export default function signup({ userIdCookie }) {
                             </div>
                         )
                     }
+                </div>
                 </div>
             </div>
         </div>
