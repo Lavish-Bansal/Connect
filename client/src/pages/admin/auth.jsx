@@ -112,6 +112,7 @@ export default function signin({ adminIdCookie }) {
                   name="email"
                   value={email}
                   className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-full"
+                  style={{width: "24vw"}}
                   onChange={(e) => setEmail(e.target.value)}
                 />
 
