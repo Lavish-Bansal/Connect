@@ -1,5 +1,5 @@
 const { Event } = require("../models/event");
-const {Attendance } = require("../models/attendance");
+const { Attendance } = require("../models/attendance");
 const Admin = require("../models/admin");
 const User = require("../models/user");
 const dotenv = require("dotenv");
@@ -57,6 +57,8 @@ const postEvent = async (req, res) => {
     cover: Cover,
     organizer: Organizer,
   });
+
+  console.log(new_event);
 
   try {
     new_event.save((error, success) => {
@@ -148,31 +150,25 @@ const deleteEvent = async (req, res) => {
 };
 
 const uploadImage = async (req, res) => {
-//   const { eventId, Name, Date, Reg_number, base64  } = req.body;
+  const { eventId, Name, Date, Reg_number, base64 } = req.body;
 
-//   const new_register = new Attendance({
-//     event_id: eventId,
-//     name: Name,
-//     date: Date,
-//     reg_number: Reg_number,
-//     image: base64,
-//   });
-
-//   try {
-//     new_register.save((error, success) => {
-//       if (error) console.log(error);
-//       else console.log("Registered Successfully.");
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-
-const {base64} = req.body;
+  const new_register = new Attendance({
+    event_id: eventId,
+    name: Name,
+    date: Date,
+    reg_number: Reg_number,
+    image: base64,
+  });
 
   try {
+    new_register.save((error, success) => {
+      if (error) console.log(error);
+      else console.log("Registered Successfully.");
+    });
     res.status(200).send({ msg: "success" });
   } catch (err) {
-    res.status(400).send({ msg: "Error uploading event", error: err });
+    console.log(err);
+    return;
   }
 };
 

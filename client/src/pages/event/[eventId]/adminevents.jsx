@@ -9,6 +9,7 @@ function AdminEventPage() {
   const router = useRouter();
   const eventId = router.query.eventId;
   const [eventData, setEventData] = useState([]);
+  const [display, setDisplay] = useState("false");
   const createdAt = eventData.createdAt;
   const date = new Date(createdAt);
   const adminId = getAdminToken();
@@ -82,6 +83,7 @@ function AdminEventPage() {
       );
       if (response.ok) {
         const data = await response.json();
+        setDisplay(data.displayEvent);
         setEventData(data);
       } else {
         throw new Error(`${response.status} ${response.statusText}`);
@@ -153,7 +155,8 @@ function AdminEventPage() {
                     </div>
                   </div>
                 </div>
-                <div className="text-left lg:text-right mt-4 lg:mt-0">
+                {display &&
+                (<div className="text-left lg:text-right mt-4 lg:mt-0">
                   <button
                     onClick={() =>
                       router.push(`/event/${eventData.event_id}/registration`)
@@ -162,7 +165,7 @@ function AdminEventPage() {
                   >
                     Registrations
                   </button>
-                </div>
+                </div>)}
               </div>
               <div className="border-b border-gray-300 mt-8 mb-4"></div>
               <div className="flex flex-col md:flex-row md:items-center justify-between">

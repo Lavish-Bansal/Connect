@@ -8,8 +8,47 @@ const ImageUpload = () => {
   const canvasRef = useRef(null);
   const [mediaStream, setMediaStream] = useState(null);
   const [capturedImageDataURL, setCapturedImageDataURL] = useState("null");
+  const [show, setShow] = useState(false);
   const [price, setPrice] = useState(0);
+  const [date, setDate] = useState(Date.now());
   const event_id = router.query.eventId;
+  const user_id = getUserToken();
+  const [userData, setUserData] = useState({});
+
+  const fetchUserData = async () => {
+    // If cookie was manually removed from browser
+    if (!user_id) {
+      console.error("No cookie found! Please signin");
+      return;
+      // redirect to signin
+      // router.push("/users/signin");
+    }
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/details`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_token: user_id,
+        }),
+      }
+    );
+    if (!response.ok)
+      throw new Error(`${response.status} ${response.statusText}`);
+
+    try {
+      const data = await response.json();
+      setUserData(data);
+    } catch (error) {
+      console.error("Invalid JSON string:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   const token = {
     billing_name: "CampusConnect",
@@ -36,8 +75,7 @@ const ImageUpload = () => {
 
   useEffect(() => {
     const fetchEvent = async () => {
-      const user_id = getUserToken();
-      console.log(user_id);
+      console.log(show);
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/event/getevent`,
@@ -53,8 +91,8 @@ const ImageUpload = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setPrice(data.price);
+          setDate(data.date);
           setProduct({
             name: data.name,
             price: data.price,
@@ -126,6 +164,10 @@ const ImageUpload = () => {
           "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify({
+          eventId: event_id,
+          Name: userData.username,
+          Date: date,
+          Reg_number: userData.reg_number,
           base64: capturedImageDataURL,
         }),
       }
@@ -182,48 +224,98 @@ const ImageUpload = () => {
       style={{
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        backgroundColor: "beige",
-        // display: "flex",
+        backgroundImage:
+          "url(https://www.baycollege.edu/_resources/images/on-campus/events/theater-stage-lights.jpg)",
+        backgroundColor: "#f05454",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <video ref={videoRef} autoPlay muted width="400" height="300" />
-      <button
-        onClick={handleCapture}
+      <div
         style={{
-          backgroundColor: "blue",
-          color: "white",
-          padding: "10px 20px",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
+          maxWidth: "800px",
+          width: "100%",
+          backgroundImage:
+            "url(https://www.baycollege.edu/_resources/images/on-campus/events/theater-stage-lights.jpg)",
+          padding: "20px",
+          backgroundColor: "#ffffff",
+          borderRadius: "10px",
+          boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
-        Capture Image
-      </button>
-
-      <canvas ref={canvasRef} style={{ display: "none" }} />
-      {/* Display the captured image */}
-      <img
-        src={capturedImageDataURL}
-        width={400}
-        height={300}
-        alt="Captured Image"
-        style={{ border: "2px solid red" }}
-      />
-
-      <button
-        onClick={handleUpload}
-        style={{
-          backgroundColor: "green",
-          color: "white",
-          padding: "10px 20px",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        Upload Image
-      </button>
+        <h1
+          style={{
+            fontSize: "24px",
+            marginBottom: "20px",
+            textAlign: "center",
+            color: "white",
+          }}
+        >
+          Image Upload
+        </h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <video ref={videoRef} autoPlay muted width="400" height="300" />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <button
+            style={{
+              fontWeight: "bold",
+              color: "#ffffff",
+              backgroundColor: "#f05454",
+              padding: "10px 20px",
+              borderRadius: "5px",
+              marginRight: "10px",
+            }}
+            onClick={handleCapture}
+          >
+            Capture Image
+          </button>
+          <button
+            style={{
+              fontWeight: "bold",
+              color: "#ffffff",
+              backgroundColor: "#f05454",
+              padding: "10px 20px",
+              borderRadius: "5px",
+            }}
+            onClick={handleUpload}
+          >
+            Upload Image
+          </button>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <canvas ref={canvasRef} style={{ display: "none" }} />
+          <img
+            src={capturedImageDataURL}
+            width={400}
+            height={300}
+            alt="Captured Image"
+            style={{
+              borderRadius: "5px",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };

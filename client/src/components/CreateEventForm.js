@@ -79,7 +79,7 @@ const CreateEvent = () => {
     };
 
     const handleCheckbox = (e) => {
-        setChecked(checked => !checked);
+        setChecked(prevchecked => !prevchecked);
         setFormData({
             ...formData,
             [e.target.name]: checked,
