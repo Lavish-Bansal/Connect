@@ -24,6 +24,9 @@ const eventSchema = new mongoose.Schema(
         price: {
             type: Number,
         },
+        displayEvent: {
+            type: Boolean,
+        },
         cover: {
             type: String,
             default:

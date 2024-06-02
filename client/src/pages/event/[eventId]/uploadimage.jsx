@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { Content } from "next/font/google";
 
 const ImageUpload = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const ImageUpload = () => {
         crossDomain: "true",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin" : '*',
+          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify({
           base64: capturedImageDataURL,
@@ -32,7 +33,28 @@ const ImageUpload = () => {
       }
     );
 
-    if (response.status === 200) {
+    const event_id = router.query.eventId;
+    const responseForPrice = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/event/getevent`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          event_id: event_id,
+        }),
+      }
+    );
+
+    console.log(responseForPrice);
+    if (responseForPrice.ok) {
+      const data = await responseForPrice.json();
+      if (data.price == 0) {
+        alert("Registration successfull");
+        router.push("/users/dashboard");
+      }
+    } else if (response.status === 200) {
       router.push(`/event/${eventId}/payment`);
     } else {
       console.error(`Failed with status code ${response.status}`);
@@ -78,9 +100,29 @@ const ImageUpload = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundColor: "beige",
+        // display: "flex",
+      }}
+    >
       <video ref={videoRef} autoPlay muted width="400" height="300" />
-      <button onClick={handleCapture}>Capture Image</button>
+      <button
+        onClick={handleCapture}
+        style={{
+          backgroundColor: "blue",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Capture Image
+      </button>
+
       <canvas ref={canvasRef} style={{ display: "none" }} />
       {/* Display the captured image */}
       <img
@@ -88,8 +130,22 @@ const ImageUpload = () => {
         width={400}
         height={300}
         alt="Captured Image"
+        style={{ border: "2px solid red" }}
       />
-      <button onClick={handleUpload}>Upload Image</button>
+
+      <button
+        onClick={handleUpload}
+        style={{
+          backgroundColor: "green",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Upload Image
+      </button>
     </div>
   );
 };

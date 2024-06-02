@@ -34,7 +34,7 @@ export default function payment() {
         const fetchEvent = async () => {
             try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/getevent`,
+                `${process.env.NEXT_PUBLIC_API_URL}/event/getevent`,
                 {
                 method: "POST",
                 headers: {

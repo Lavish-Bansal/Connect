@@ -5,10 +5,10 @@ import React from "react";
 
 function eventform() {
     return (
-        <div className="pt-20 lg:pt-8 bg-[color:var(--primary-color)]">
+        <div style={{backgroundColor: "beige"}} className="pt-20 lg:pt-8 bg-[color:var(--primary-color)]">
             <AdminNavBar />
             <center className = "p-6">
-                <div className="flex flex-col md:h-[calc(88vh)] md:w-[90%] md:flex-row justify-center bg-[color:var(--primary-color)]">
+                <div style={{backgroundColor: "beige"}} className="flex flex-col md:w-[90%] md:flex-row justify-center bg-[color:var(--primary-color)]">
                     <div className="flex-1 mx-6 mb-6 bg-[color:var(--primary-color)]">
                         <Image
                             src="/img/eventsFormImg.jpg"

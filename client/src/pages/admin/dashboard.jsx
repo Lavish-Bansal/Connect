@@ -152,7 +152,7 @@ function UserDashboard() {
                         <div className="flex flex-row justify-between items-start mt-4">
                           <div className="px-2">
                             <p className="text-sm text-gray-800 font-bold">
-                              {event.name.length > 30
+                              {event.name && event.name.length > 30
                                 ? event.name.slice(0, 30) + "..."
                                 : event.name}
                             </p>

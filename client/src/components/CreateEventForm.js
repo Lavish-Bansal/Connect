@@ -1,10 +1,13 @@
 import { getAdminToken } from "@/utils/getAdminToken";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { Stack, Checkbox } from "@fluentui/react";
 
 const CreateEvent = () => {
     const router = useRouter();
     const admin_id = getAdminToken();
+
+    const [checked, setChecked] = useState(false);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -13,6 +16,7 @@ const CreateEvent = () => {
         datetime: "",
         price: "",
         profile: "",
+        displayEvent: false,
         cover: "",
         description: "",
     });
@@ -41,6 +45,7 @@ const CreateEvent = () => {
             date: date,
             time: time,
             description: formData.description,
+            displayEvent: formData.displayEvent,
             price: formData.price,
             profile: formData.profile != "" ? formData.profile : undefined,
             cover: formData.cover != "" ? formData.cover : undefined,
@@ -72,6 +77,17 @@ const CreateEvent = () => {
             [e.target.name]: e.target.value,
         });
     };
+
+    const handleCheckbox = (e) => {
+        setChecked(checked => !checked);
+        setFormData({
+            ...formData,
+            [e.target.name]: checked,
+        });
+        console.log(formData);
+    };
+
+    const stackTokens = { childrenGap: 10 };
 
     return (
         <div className="flex h-full text-left bg-white rounded-lg shadow-lg items-center">
@@ -205,6 +221,9 @@ const CreateEvent = () => {
                             />
                         </div>
                     </div>
+                    <Stack tokens={stackTokens}>
+                        <Checkbox label="Display Events" name="displayEvent" value={formData.displayEvent} onChange={handleCheckbox} />
+                    </Stack>
                     <div>
                         <label
                             htmlFor="description"
