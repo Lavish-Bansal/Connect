@@ -1,4 +1,5 @@
 const { Event } = require("../models/event");
+const {Attendance } = require("../models/attendance");
 const Admin = require("../models/admin");
 const User = require("../models/user");
 const dotenv = require("dotenv");
@@ -9,158 +10,176 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
 function sendCheckInMail(data) {
-    let transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.NODE_MAILER_USER,
-            pass: process.env.NODE_MAILER_PASS
-        },
-        tls: {
-            rejectUnauthorized: false,
-        },
-    });
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.NODE_MAILER_USER,
+      pass: process.env.NODE_MAILER_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
 }
 
 const postEvent = async (req, res) => {
-    const Name = req.body.name;
-    const Venue = req.body.venue;
-    const Date = req.body.date;
-    const Time = req.body.time;
-    const Desc = req.body.description;
-    const Price = req.body.price;
-    const DisplayEvent = req.body.displayEvent;
-    const Profile = req.body.profile;
-    const Cover = req.body.cover;
-    const Organizer = req.body.organizer;
+  const Name = req.body.name;
+  const Venue = req.body.venue;
+  const Date = req.body.date;
+  const Time = req.body.time;
+  const Desc = req.body.description;
+  const Price = req.body.price;
+  const DisplayEvent = req.body.displayEvent;
+  const Profile = req.body.profile;
+  const Cover = req.body.cover;
+  const Organizer = req.body.organizer;
 
-    const adminId = req.body.admin_id;
-    // console.log("Admin mil gaya: ", adminId);
+  const adminId = req.body.admin_id;
+  // console.log("Admin mil gaya: ", adminId);
 
-    const secret = process.env.JWT_SECRET;
-    const payload = {
-        email: Name,
-    };
+  const secret = process.env.JWT_SECRET;
+  const payload = {
+    email: Name,
+  };
 
-    const token = await jwt.sign(payload, secret);
+  const token = await jwt.sign(payload, secret);
 
-    const new_event = new Event({
-        event_id: token,
-        name: Name,
-        venue: Venue,
-        date: Date,
-        time: Time,
-        description: Desc,
-        price: Price,
-        displayEvent: DisplayEvent,
-        profile: Profile,
-        cover: Cover,
-        organizer: Organizer,
+  const new_event = new Event({
+    event_id: token,
+    name: Name,
+    venue: Venue,
+    date: Date,
+    time: Time,
+    description: Desc,
+    price: Price,
+    displayEvent: DisplayEvent,
+    profile: Profile,
+    cover: Cover,
+    organizer: Organizer,
+  });
+
+  try {
+    new_event.save((error, success) => {
+      if (error) console.log(error);
+      else console.log("Saved::New Event::created.");
     });
+  } catch (err) {
+    console.log(err);
+  }
 
-    try {
-        new_event.save((error, success) => {
-            if (error) console.log(error);
-            else console.log("Saved::New Event::created.");
-        });
-    } catch (err) {
-        console.log(err);
-    }
-
-    Admin.updateOne(
-        { admin_id: adminId },
-        {
-            $push: {
-                eventCreated: {
-                    event_id: token,
-                    name: Name,
-                    venue: Venue,
-                    date: Date,
-                    time: Time,
-                    description: Desc,
-                    price: Price,
-                    displayEvent: DisplayEvent,
-                    profile:
-                        Profile == null
-                            ? "https://i.etsystatic.com/15907303/r/il/c8acad/1940223106/il_794xN.1940223106_9tfg.jpg"
-                            : Profile,
-                    cover:
-                        Cover == null
-                            ? "https://eventplanning24x7.files.wordpress.com/2018/04/events.png"
-                            : Cover,
-                    organizer: Organizer,
-                },
-            },
+  Admin.updateOne(
+    { admin_id: adminId },
+    {
+      $push: {
+        eventCreated: {
+          event_id: token,
+          name: Name,
+          venue: Venue,
+          date: Date,
+          time: Time,
+          description: Desc,
+          price: Price,
+          displayEvent: DisplayEvent,
+          profile:
+            Profile == null
+              ? "https://i.etsystatic.com/15907303/r/il/c8acad/1940223106/il_794xN.1940223106_9tfg.jpg"
+              : Profile,
+          cover:
+            Cover == null
+              ? "https://eventplanning24x7.files.wordpress.com/2018/04/events.png"
+              : Cover,
+          organizer: Organizer,
         },
-        function (err) {
-            if (err) {
-                console.log(err);
-            }
-        }
-    );
+      },
+    },
+    function (err) {
+      if (err) {
+        console.log(err);
+      }
+    }
+  );
 
-    res.status(200).send({ msg: "event created", event_id: token });
+  res.status(200).send({ msg: "event created", event_id: token });
 };
 
 const allEvents = async (req, res) => {
-    Event.find({})
+  Event.find({})
     .then((data) => {
-        res.status(200).send(data);
+      res.status(200).send(data);
     })
     .catch((err) => {
-        res.status(400).send({ msg: "Error fetching data", error: err });
+      res.status(400).send({ msg: "Error fetching data", error: err });
     });
 };
 
 const particularEvent = async (req, res) => {
-    const eventId = req.body.event_id;
-    Event.find({ event_id: eventId })
-        .then((data) => {
-            res.status(200).send(data[0]);
-        })
-        .catch((err) => {
-            res.status(400).send({ msg: "Error fetching event", error: err });
-        });
+  const eventId = req.body.event_id;
+  Event.find({ event_id: eventId })
+    .then((data) => {
+      res.status(200).send(data[0]);
+    })
+    .catch((err) => {
+      res.status(400).send({ msg: "Error fetching event", error: err });
+    });
 };
 
 const deleteEvent = async (req, res) => {
-    const eventId = req.body.event_id;
-    const adminId = req.body.admin_id;
+  const eventId = req.body.event_id;
+  const adminId = req.body.admin_id;
 
-    Event.deleteOne({ event_id: eventId }, function (err) {
-        if (err) return handleError(err);
-        else {
-            console.log("Event deleted::events collection.");
-        }
-    });
+  Event.deleteOne({ event_id: eventId }, function (err) {
+    if (err) return handleError(err);
+    else {
+      console.log("Event deleted::events collection.");
+    }
+  });
 
-    Admin.updateOne(
-        { admin_id: adminId },
-        { $pull: { eventCreated: { event_id: eventId } } },
-        function (err) {
-            if (err) return handleError(err);
-            else {
-                console.log("Event deleted::admin collection.");
-            }
-        }
-    );
-    res.status(200).send({ msg: "success" });
+  Admin.updateOne(
+    { admin_id: adminId },
+    { $pull: { eventCreated: { event_id: eventId } } },
+    function (err) {
+      if (err) return handleError(err);
+      else {
+        console.log("Event deleted::admin collection.");
+      }
+    }
+  );
+  res.status(200).send({ msg: "success" });
 };
 
-const uploadImage = async (req, res) =>{
-    const { base64 } = req.body;
+const uploadImage = async (req, res) => {
+//   const { eventId, Name, Date, Reg_number, base64  } = req.body;
 
-    try{
-        res.status(200).send({msg: "success"});
-    }
-    catch(err){
-        res.status(400).send({ msg: "Error uploading event", error: err });
-    }
-}
+//   const new_register = new Attendance({
+//     event_id: eventId,
+//     name: Name,
+//     date: Date,
+//     reg_number: Reg_number,
+//     image: base64,
+//   });
+
+//   try {
+//     new_register.save((error, success) => {
+//       if (error) console.log(error);
+//       else console.log("Registered Successfully.");
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+
+const {base64} = req.body;
+
+  try {
+    res.status(200).send({ msg: "success" });
+  } catch (err) {
+    res.status(400).send({ msg: "Error uploading event", error: err });
+  }
+};
 
 module.exports = {
-    postEvent,
-    allEvents,
-    particularEvent,
-    deleteEvent,
-    uploadImage
-}
+  postEvent,
+  allEvents,
+  particularEvent,
+  deleteEvent,
+  uploadImage,
+};

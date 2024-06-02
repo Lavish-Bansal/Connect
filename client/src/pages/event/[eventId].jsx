@@ -10,6 +10,7 @@ function EventPage() {
   const eventId = router.query.eventId;
   const userId = getUserToken();
   const [eventData, setEventData] = useState([]);
+  const [display, setDisplay] = useState("false");
   const [isUserRegistered, setIsUserRegistered] = useState(false);
 
   // function to handle share button click
@@ -27,10 +28,6 @@ function EventPage() {
   };
 
   const handleRegister = () => {
-    // if(eventData.price == 0){
-    //     console.log("Free Event Registration!");
-    //     handleToken(eventId, userId);
-
     if (!userId) {
       alert("Please Signup/Signin to Register");
       router.push("/");
@@ -39,7 +36,7 @@ function EventPage() {
 
   // function that fetches the event data on load
   const fetchEvent = async () => {
-    console.log(userId);
+    // console.log(userId);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/event/getevent`,
@@ -55,6 +52,7 @@ function EventPage() {
       );
       if (response.ok) {
         const data = await response.json();
+        setDisplay(data.displayEvent);
         setEventData(data);
         // Check if the user's ID exists in the participants array
         setIsUserRegistered(
@@ -132,7 +130,8 @@ function EventPage() {
                     </div>
                   </div>
                 </div>
-                <div className="text-left lg:text-right mt-4 lg:mt-0">
+                {display &&
+                (<div className="text-left lg:text-right mt-4 lg:mt-0">
                   <button
                     onClick={handleRegister}
                     className={`px-6 py-2 ${
@@ -144,7 +143,7 @@ function EventPage() {
                   >
                     {isUserRegistered ? "Already Registered" : "Register now"}
                   </button>
-                </div>
+                </div>)}
               </div>
               <div className="border-b border-gray-300 mt-8 mb-4"></div>
               <div className="flex flex-col md:flex-row md:items-center justify-between">

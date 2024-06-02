@@ -222,7 +222,7 @@ const CreateEvent = () => {
                         </div>
                     </div>
                     <Stack tokens={stackTokens}>
-                        <Checkbox label="Display Events" name="displayEvent" value={formData.displayEvent} onChange={handleCheckbox} />
+                        <Checkbox label="Registration Not Required" name="displayEvent" value={formData.displayEvent} onChange={handleCheckbox} />
                     </Stack>
                     <div>
                         <label

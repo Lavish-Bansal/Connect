@@ -18,20 +18,23 @@ function UserDashboard() {
     keyword: "",
     category: "",
     dateRange: "",
-    price: [10, 3000],
+    price: [0, 3000],
   });
   const [originalEvents, setOriginalEvents] = useState([]);
 
   const fetchAllEvents = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/details`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        admin_id: adminIdCookie,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/details`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          admin_id: adminIdCookie,
+        }),
+      }
+    );
     if (!response.ok)
       throw new Error(`${response.status} ${response.statusText}`);
 
@@ -69,10 +72,10 @@ function UserDashboard() {
       }
 
       if (
-          event.price < filterOptions.price[0] ||
-          event.price > filterOptions.price[1]
+        event.price < filterOptions.price[0] ||
+        event.price > filterOptions.price[1]
       ) {
-          return false;
+        return false;
       }
 
       return true;
@@ -98,7 +101,10 @@ function UserDashboard() {
         <div className="flex mx-auto container ">
           <div className="flex m-auto overflow-y-hidden w-full h-[calc(88vh)]">
             {/* Render the regular filter for medium screens and above */}
-            <div style={{backgroundColor: "beige"}} className="hidden md:flex flex-col p-4 sticky top-0 w-1/6 md:w-1/4">
+            <div
+              style={{ backgroundColor: "beige" }}
+              className="hidden md:flex flex-col p-4 sticky top-0 w-1/6 md:w-1/4"
+            >
               <Dashboard_Filter
                 filterOptions={filterOptions}
                 setFilterOptions={setFilterOptions}
@@ -121,10 +127,22 @@ function UserDashboard() {
               </div>
             )}
             {/* Render the main content of the dashboard */}
-            <div style={{backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundImage: 'url(https://www.baycollege.edu/_resources/images/on-campus/events/theater-stage-lights.jpg)'}} className="flex w-full md:w-3/4 mx-auto justify-between container">
+            <div
+              style={{
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundImage:
+                  "url(https://www.baycollege.edu/_resources/images/on-campus/events/theater-stage-lights.jpg)",
+              }}
+              className="flex w-full md:w-3/4 mx-auto justify-between container"
+            >
               <div className="p-4 overflow-y-auto w-full h-[calc(90vh)]">
-              <h2 style={{ fontSize: 30, color: "#fff", fontWeight: 1000}} className="text-lg font-medium mb-4 mt-4 text-center">
-                Events</h2>
+                <h2
+                  style={{ fontSize: 30, color: "#fff", fontWeight: 1000 }}
+                  className="text-lg font-medium mb-4 mt-4 text-center"
+                >
+                  Events
+                </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5  ">
                   {filteredEvents.length === 0 ? (
                     <p>No events yet</p>
@@ -151,16 +169,11 @@ function UserDashboard() {
                         </div>
                         <div className="flex flex-row justify-between items-start mt-4">
                           <div className="px-2">
-<<<<<<< HEAD
-                            {/* <p className="text-sm text-gray-800 font-bold">
-                              {event.name.length > 30
-=======
                             <p className="text-sm text-gray-800 font-bold">
                               {event.name && event.name.length > 30
->>>>>>> a5fe77730748e1a2c94558ebf898354f8a352191
                                 ? event.name.slice(0, 30) + "..."
                                 : event.name}
-                            </p> */}
+                            </p>{" "}
                             <p className="text-sm text-gray-800">
                               {event.venue}
                             </p>

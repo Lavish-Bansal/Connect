@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { getUserToken } from "@/utils/getUserToken";
 
 const ImageUpload = () => {
   const router = useRouter();
@@ -35,6 +36,8 @@ const ImageUpload = () => {
 
   useEffect(() => {
     const fetchEvent = async () => {
+      const user_id = getUserToken();
+      console.log(user_id);
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/event/getevent`,
@@ -50,6 +53,7 @@ const ImageUpload = () => {
         );
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           setPrice(data.price);
           setProduct({
             name: data.name,
@@ -128,7 +132,8 @@ const ImageUpload = () => {
     );
 
     if (response.status === 200) {
-      router.push(`/event/${eventId}/payment`);
+      if (price === 0) handleToken();
+      else router.push(`/event/${event_id}/payment`);
     } else {
       console.error(`Failed with status code ${response.status}`);
       alert("Please try after sometime");
