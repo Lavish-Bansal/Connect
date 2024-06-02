@@ -64,7 +64,15 @@ export default function signup({ userIdCookie }) {
       }
     );
     const data = await response.json();
-    if (response.status === 200) {
+
+    // Check if the email has the required domain
+    const validDomains = ['gmail.com', 'glbitm.ac.in', 'yahoo.com'];
+    const emailRegex = new RegExp(`^[^@\\s]+@(${validDomains.join('|')})$`, 'i');
+
+    if(!emailRegex.test(email)){
+      setMessage({ errorMsg: "Email entered is not valid, please enter a valid email address", successMsg: "" });
+    }
+    else if (response.status === 200) {
       setMessage({ errorMsg: "", successMsg: data.msg });
       console.log(data);
       setStep(2); // Move to next step on the same page
