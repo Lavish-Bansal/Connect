@@ -83,9 +83,23 @@ export default function NavBar() {
                         alt="Logo"
                         className="h-12 w-auto object-contain"
                     />
-                    <h1 className="m-2 text-black font-bold text-4xl">
-                        {"CampusConnect"}
-                    </h1>
+                    <h1 style={{ fontFamily: "Courier New, Courier, monospace" }} className="nav-links px-4 cursor-pointer capitalize font-medium text-gray-500 hover:scale-105 text-white-500 duration-200 link-underline">
+                    <Link legacyBehavior href="/users/dashboard">
+                        <a
+                            className="link-underline link-underline-black"
+                            style={{
+                                fontFamily: "Courier New, Courier, monospace",
+                                fontSize: 20,
+                                padding: 10,
+                                marginTop: 10,
+                                color: "white",
+                                fontWeight: 700,
+                            }}
+                        >
+                            CampusConnect
+                        </a>
+                    </Link>
+                </h1>
                 </div>
                 <nav className="text-sm">
                     <ul className="flex items-center">
@@ -103,12 +117,12 @@ export default function NavBar() {
                         >
                             <a>Past Events</a>
                         </li>
-                        <li
+                        {/* <li
                             onClick={() => router.push("/")}
                             className="mr-4 cursor-pointer"
                         >
                             <a>About us</a>
-                        </li>
+                        </li> */}
                         <UserDropdown userData={userData}/>
                     </ul>
                 </nav>

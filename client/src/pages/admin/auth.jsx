@@ -25,41 +25,47 @@ export default function signin({ adminIdCookie }) {
   const router = useRouter();
 
   useEffect(() => {
+    // If cookie found, Redirect to dashboard
     if (adminIdCookie) {
-      setStep(2);
+      setStep(2); // Skip auth steps
 
       setTimeout(() => {
+        // Set success message
         setMessage({
           errorMsg: "",
           successMsg: "Redirecting you ...",
         });
       }, 500);
 
+      // Redirect to dashboard
       setTimeout(() => {
         router.push("/admin/dashboard");
       }, 800);
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/auth`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/auth`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      }
+    );
     const data = await response.json();
     if (response.status === 200) {
       setMessage({ errorMsg: "", successMsg: data.msg });
       console.log(data);
-      setStep(2);
+      setStep(2); // Move to next step on the same page
 
-      setAdminToken(data.admin_token);
+      setAdminToken(data.admin_token); // set cookie when signed up
     } else {
       console.error(`Failed with status code ${response.status}`);
       setMessage({ errorMsg: data.msg, successMsg: "" });
@@ -67,43 +73,80 @@ export default function signin({ adminIdCookie }) {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "beige",
-        backgroundImage: `url('https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`,
-        height: "100vh",
-      }}
-    >
+    <div className="m-2">
+      {/* back button */}
       <FiArrowLeft
         onClick={() => router.push("/")}
         size={24}
         className="cursor-pointer"
-        style={{ marginLeft: 10, height: 35, width: 40, color: "red" }}
       />
+      {/* Page heading */}
+      <div className="text-center text-3xl font-bold">
+        Admin Authentication Page
+      </div>
 
-      <div className="max-w-3xl mx-auto mt-10" style={{ width: "35vw", filter: 'blur(0px)', position: "relative" }}>
-        <div className="flex items-center justify-center"></div>
+      {/* Page Content */}
+      <div className="max-w-3xl mx-auto mt-10">
+        {/* Steps Nav */}
+        <div className="flex items-center justify-center">
+          {/* Step 1: normal-height:fit; mobile-view: 6rem*/}
+          <div
+            className={`w-full h-24 lg:h-fit ${
+              step === 1 ? `font-medium` : ``
+            }`}
+          >
+            <div
+              className={`h-full border-2 rounded-l-lg px-5 py-2 ${
+                step >= 1
+                  ? `text-white bg-[color:var(--darker-secondary-color)] border-r-white border-[color:var(--darker-secondary-color)]`
+                  : `border-[color:var(--darker-secondary-color)] border-dashed`
+              }`}
+            >
+              <div>01</div>
+              Verify Credentials
+            </div>
+          </div>
 
+          {/* Step 2: normal-height:fit; mobile-view: 6rem */}
+          <div
+            className={`w-full h-24 lg:h-fit ${
+              step === 2 ? `font-medium` : ``
+            }`}
+          >
+            <div
+              className={`h-full border-2 border-l-0 rounded-r-lg px-5 py-2 ${
+                step >= 2
+                  ? `text-white bg-[color:var(--darker-secondary-color)] border-[color:var(--darker-secondary-color)]`
+                  : `border-[color:var(--darker-secondary-color)] border-dashed`
+              }`}
+            >
+              <div>02</div>
+              Go to Dashboard!
+            </div>
+          </div>
+        </div>
+
+        {/* Error Message */}
         {message.errorMsg && (
           <h1 className="rounded p-3 my-2 bg-red-200 text-red-600 font-medium">
             {message.errorMsg}
           </h1>
         )}
 
+        {/* Success Message */}
         {message.successMsg && (
           <h1 className="rounded p-3 my-2 bg-green-200 text-green-600 font-medium">
             {message.successMsg}
           </h1>
         )}
 
-        <div style={{ display: "flex", justifyContent: "center", }}>
-          <div className="bg-white p-5 rounded-lg mt-2" style={{ backgroundImage: `url('https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=600')`,height: "83vh", width: "28vw" }}>
-            <div className="text-center text-2xl font-bold">
-              Admin Authentication Page
-            </div>
-            {step === 1 && (
+        {/* Steps Content */}
+        <div className="bg-white p-5 rounded-lg mt-2">
+          {
+            /* Step 1 Content*/
+            step === 1 && (
               <form onSubmit={handleSubmit}>
-                <label style={{ marginLeft: 10, marginBottom: 18, marginTop: 30, font: "icon" }} className="block mb-2 text-sm font-medium text-gray-700">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Enter your Registered Email address
                 </label>
                 <input
@@ -115,7 +158,7 @@ export default function signin({ adminIdCookie }) {
                   onChange={(e) => setEmail(e.target.value)}
                 />
 
-                <label style={{marginLeft: 10, font: "icon"}} className="block mb-2 text-sm font-medium text-gray-700">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Enter your Password
                 </label>
                 <input
@@ -123,28 +166,39 @@ export default function signin({ adminIdCookie }) {
                   id="password"
                   name="password"
                   value={password}
-                  className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg"
-                  style={{ width: "24vw" }}
+                  className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-full"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-
                 <button
                   type="submit"
                   className="btn text-white bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] w-full mt-4 mb-4 sm:w-auto sm:mb-0"
-                  style={{ marginLeft: 10, marginTop: 14 }}
                 >
                   Verify
                 </button>
+
+                <button
+                  type="submit"
+                  onClick={() => {
+                    setEmail("test@gmail.com");
+                    setPassword("test123");
+                  }}
+                  className="btn text-white bg-gray-700 hover:bg-gray-800 mt-4 w-full sm:w-auto sm:ml-4"
+                >
+                  Use Test Credentials
+                </button>
               </form>
-            )}
-            {step === 2 && (
+            )
+          }
+          {
+            /* Step 2 Content */
+            step === 2 && (
               <div>
                 <div className="bg-green-50 border-b border-green-400 text-green-800 text-sm p-4 flex justify-between">
                   <div>
                     <div className="flex items-center">
                       <p>
                         <span className="font-bold">Hey there! </span>
-                        Welcome back, you re successfully signed in!
+                        Welcome back, you're successfully signed in!
                       </p>
                     </div>
                   </div>
@@ -156,8 +210,8 @@ export default function signin({ adminIdCookie }) {
                   Go to your dashboard
                 </button>
               </div>
-            )}
-          </div>
+            )
+          }
         </div>
       </div>
     </div>

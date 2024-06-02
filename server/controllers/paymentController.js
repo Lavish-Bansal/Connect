@@ -26,7 +26,6 @@ const payment = async (req, res) => {
         });
 
         // console.log(customer);
-s
         charge = await stripe.charges.create(
             {
                 amount: product.price * 100,
@@ -53,18 +52,17 @@ s
         // console.log("Charge: ", { charge });
         status = "success";
     } catch (error) {
-        console.log(error);
         status = "success";
     }
 
     // collecting ticket details
     User.find({ user_token: user.user_id }, async function (err, docs) {
-        // console.log(docs);
+        // console.log("docs: ", docs);
         if (docs.length !== 0) {
             var Details = {
                 email: docs[0].email,
                 event_name: product.name,
-                name: token.billing_name,
+                name: docs[0].username,
                 pass: key,
                 price: product.price,
                 address1: token.shipping_address_line1,
@@ -83,7 +81,7 @@ s
                     function (err, doc) {
                         if (err) return handleError(err);
                         if (doc) {
-                            console.log("Element already exists in array");
+                            // console.log("Element already exists in array");
                             check = "alreadyregistered";
                         } else {
                             Event.updateOne(

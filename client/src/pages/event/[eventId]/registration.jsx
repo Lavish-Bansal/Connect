@@ -15,7 +15,7 @@ const Registration = () => {
         const fetchEvent = async () => {
             try {
                 const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/getevent`,
+                    `${process.env.NEXT_PUBLIC_API_URL}/event/getevent`,
                     {
                         method: "POST",
                         headers: {
@@ -107,7 +107,7 @@ const Registration = () => {
                         >
                             All Users
                         </button>
-                        <button
+                        {/* <button
                             className={`px-4 py-2 rounded ${
                                 showChecklist
                                     ? "bg-[color:var(--darker-secondary-color)] text-white hover:bg-[color:var(--secondary-color)]"
@@ -116,7 +116,7 @@ const Registration = () => {
                             onClick={() => setShowChecklist(true)}
                         >
                             Check List
-                        </button>
+                        </button> */}
                     </div>
                     <div>
                         <input

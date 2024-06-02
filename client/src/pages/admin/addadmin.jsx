@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Addadmin() {
+function addAdmin() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -79,4 +79,4 @@ function Addadmin() {
         </div>
     );
 }
-export default addadmin;
+export default addAdmin;

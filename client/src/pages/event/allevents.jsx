@@ -1,4 +1,4 @@
-import Header from "@/components/Landing_Page_partials/Header";
+import Header from "@/components/Landing_Page_partials/Header_new";
 import Dashboard_Filter from "@/components/Dashboard_Filter";
 import UserNavBar from "@/components/UserNavBar";
 import Image from "next/image";
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Popup_Filter from "@/components/Popup_Filter";
+import moment from "moment";
 
 function UserDashboard() {
     const router = useRouter();
@@ -28,10 +29,15 @@ function UserDashboard() {
         }
         try {
             const data = await response.json();
-            setAllEvents(data);
-        } catch (error) {
+            const today = moment();
+            const filteredArray = data.filter((item) => {
+              const eventDate = moment(item.date, "DD/MM/YYYY");
+              return eventDate.isSameOrAfter(today);
+            });
+            setAllEvents(filteredArray);
+          } catch (error) {
             console.error("Invalid JSON string:", error.message);
-        }
+          }
     };
 
     useEffect(() => {
@@ -91,13 +97,13 @@ function UserDashboard() {
     };
 
     return (
-        <div className="pt-20 lg:pt-8 overflow-y-hidden bg-[color:var(--primary-color)]">
-            <div style={{ marginTop: -32 }}>
+        <div className="overflow-y-hidden bg-[color:var(--primary-color)]">
+            <div >
                 <Header />
             </div>
             <div className="flex m-auto w-full">
                 <div className="flex mx-auto container ">
-                    <div className="flex m-auto overflow-y-hidden w-full h-[calc(88vh)]">
+                    <div className="flex m-auto overflow-y-hidden w-full h-[calc(100vh)]">
                         {/* Render the regular filter for medium screens and above */}
                         <div style={{ backgroundColor: "beige" }} className="hidden md:flex flex-col p-4 sticky top-0 w-1/6 md:w-1/4">
                             <Dashboard_Filter
@@ -141,7 +147,7 @@ function UserDashboard() {
                                                 className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
                                                 key={event._id}
                                             >
-                                                <div className="relative h-[25rem]">
+                                                <div className="relative     h-[25rem]">
                                                     {event.profile && (
                                                         <Image
                                                             fill

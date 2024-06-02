@@ -27,10 +27,6 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        // profileImage: {
-        //     type: String,
-        //     // You can store the image URL or path to the image file
-        // },
         registeredEvents: [eventSchema],
     },
     { timestamps: true }

@@ -1,44 +1,33 @@
-import AdminNavBar from "@/components/AdminNavBar";
+import Header from "@/components/Landing_Page_partials/Header";
 import Dashboard_Filter from "@/components/Dashboard_Filter";
-import { getAdminToken } from "@/utils/getAdminToken";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
 import { FaUsers } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
+import Popup_Filter from "@/components/Popup_Filter";
 
 function UserDashboard() {
   const router = useRouter();
 
   const [allEvents, setAllEvents] = useState([]);
-  const adminIdCookie = getAdminToken();
   const [popupFilterOpen, setPopupFilterOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState({
     keyword: "",
     category: "",
     dateRange: "",
-    price: [10, 3000],
   });
-  const [originalEvents, setOriginalEvents] = useState([]);
 
   const fetchAllEvents = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/details`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        admin_id: adminIdCookie,
-      }),
-    });
-    if (!response.ok)
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/event/getallevents`
+    );
+    if (!response.ok) {
       throw new Error(`${response.status} ${response.statusText}`);
-
+    }
     try {
       const data = await response.json();
-      setAllEvents(data.eventCreated);
-      setOriginalEvents(data.eventCreated);
+      setAllEvents(data);
     } catch (error) {
       console.error("Invalid JSON string:", error.message);
     }
@@ -46,12 +35,14 @@ function UserDashboard() {
 
   useEffect(() => {
     fetchAllEvents();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const [filteredEvents, setFilteredEvents] = useState(allEvents);
 
+  // Update filteredEvents state whenever allEvents or filterOptions change
   useEffect(() => {
     const newFilteredEvents = allEvents.filter((event) => {
+      // Check if keyword filter matches
       if (
         filterOptions.keyword.toLowerCase() &&
         !event.name.toLowerCase().includes(filterOptions.keyword.toLowerCase())
@@ -59,15 +50,19 @@ function UserDashboard() {
         return false;
       }
 
+      // Check if date range filter matches
       if (filterOptions.dateRange) {
         const date = filterOptions.dateRange;
+        // Split the date string into an array of substrings
         const dateParts = event.date.split("/");
+        // Rearrange the array elements to get yyyy-mm-dd format
         const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
         if (formattedDate < date) {
           return false;
         }
       }
 
+      // Check if price filter matches
       if (
           event.price < filterOptions.price[0] ||
           event.price > filterOptions.price[1]
@@ -86,6 +81,7 @@ function UserDashboard() {
       keyword: "",
       category: "",
       dateRange: "",
+      price: [10, 3000],
     });
     setFilteredEvents(allEvents);
     setPopupFilterOpen(false);
@@ -93,12 +89,17 @@ function UserDashboard() {
 
   return (
     <div className="pt-20 lg:pt-8 overflow-y-hidden bg-[color:var(--primary-color)]">
-      <AdminNavBar />
-      <div className="flex m-auto">
+      <div style={{ marginTop: -32 }}>
+        <Header />
+      </div>
+      <div className="flex m-auto w-full">
         <div className="flex mx-auto container ">
           <div className="flex m-auto overflow-y-hidden w-full h-[calc(88vh)]">
             {/* Render the regular filter for medium screens and above */}
-            <div style={{backgroundColor: "beige"}} className="hidden md:flex flex-col p-4 sticky top-0 w-1/6 md:w-1/4">
+            <div
+              style={{ backgroundColor: "beige" }}
+              className="hidden md:flex flex-col p-4 sticky top-0 w-1/6 md:w-1/4"
+            >
               <Dashboard_Filter
                 filterOptions={filterOptions}
                 setFilterOptions={setFilterOptions}
@@ -109,30 +110,40 @@ function UserDashboard() {
             {popupFilterOpen && (
               <div className="md:hidden fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
                 <div className="bg-white rounded-lg p-4 w-5/6">
-                  {/* <Popup_Filter
-                                        filterOptions={filterOptions}
-                                        setFilterOptions={setFilterOptions}
-                                        handleFilterClear={handleFilterClear}
-                                        handleClose={() =>
-                                            setPopupFilterOpen(false)
-                                        }
-                                    /> */}
+                  <Popup_Filter
+                    filterOptions={filterOptions}
+                    setFilterOptions={setFilterOptions}
+                    handleFilterClear={handleFilterClear}
+                    handleClose={() => setPopupFilterOpen(false)}
+                  />
                 </div>
               </div>
             )}
             {/* Render the main content of the dashboard */}
-            <div style={{backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundImage: 'url(https://www.baycollege.edu/_resources/images/on-campus/events/theater-stage-lights.jpg)'}} className="flex w-full md:w-3/4 mx-auto justify-between container">
+            <div
+              style={{
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundImage:
+                  "url(https://www.baycollege.edu/_resources/images/on-campus/events/theater-stage-lights.jpg)",
+              }}
+              className="flex w-full md:w-3/4 mx-auto justify-between container"
+            >
               <div className="p-4 overflow-y-auto w-full h-[calc(90vh)]">
-              <h2 style={{ fontSize: 30, color: "#fff", fontWeight: 1000}} className="text-lg font-medium mb-4 mt-4 text-center">
-                Events</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5  ">
+                <h2
+                  style={{ fontSize: 30, color: "#fff", fontWeight: 1000 }}
+                  className="text-lg font-medium mb-4 mt-4 text-center"
+                >
+                  Events
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {filteredEvents.length === 0 ? (
                     <p>No events yet</p>
                   ) : (
                     filteredEvents.map((event) => (
                       <div
                         onClick={() => {
-                          router.push(`/event/${event.event_id}/adminevents`);
+                          router.push(`/event/${event.event_id}`);
                         }}
                         className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
                         key={event._id}
@@ -151,11 +162,11 @@ function UserDashboard() {
                         </div>
                         <div className="flex flex-row justify-between items-start mt-4">
                           <div className="px-2">
-                            {/* <p className="text-sm text-gray-800 font-bold">
+                            <p className="text-sm text-gray-800 font-bold">
                               {event.name.length > 30
                                 ? event.name.slice(0, 30) + "..."
                                 : event.name}
-                            </p> */}
+                            </p>
                             <p className="text-sm text-gray-800">
                               {event.venue}
                             </p>
@@ -167,7 +178,7 @@ function UserDashboard() {
                           <div className="flex flex-col justify-end items-center">
                             <span className="w-full flex flex-row items-center">
                               <FaUsers />
-                              <span className="ml-2 text-sm"></span>
+                              <span className="ml-2 text-sm">4,92</span>
                             </span>
                             <p className="text-sm text-gray-800 mt-2">
                               <strong className="whitespace-nowrap">
@@ -191,13 +202,6 @@ function UserDashboard() {
                 title="Filter Events"
               >
                 <RxHamburgerMenu className="w-6 h-6" />
-              </button>
-              <button
-                onClick={() => router.push("/admin/eventform")}
-                className="mt-4 flex items-center justify-center w-[4rem] h-[4rem] text-white rounded-full bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] hover:scale-105 shadow-lg cursor-pointer transition-all ease-in-out focus:outline-none"
-                title="Create Events"
-              >
-                <AiOutlinePlus className="w-6 h-6" />
               </button>
             </div>
           </div>

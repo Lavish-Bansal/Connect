@@ -95,7 +95,7 @@ export default function NavBar() {
                 {links.map(({ id, link, text }) => (
                     <li
                         key={id}
-                        className="nav-links px-4 cursor-pointer capitalize font-medium text-white-500 hover:scale-105 hover:text-black duration-200 link-underline"
+                        className="nav-links px-4 cursor-pointer capitalize  text-white-500 hover:scale-105 hover:text-black duration-200 link-underline"
                     >
                         <Link href={link}>{text}</Link>
                     </li>

@@ -33,7 +33,7 @@ const postEvent = async (req, res) => {
     const Organizer = req.body.organizer;
 
     const adminId = req.body.admin_id;
-    console.log("Admin mil gaya: ", adminId);
+    // console.log("Admin mil gaya: ", adminId);
 
     const secret = process.env.JWT_SECRET;
     const payload = {
