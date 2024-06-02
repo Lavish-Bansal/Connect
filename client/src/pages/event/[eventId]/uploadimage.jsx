@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Content } from "next/font/google";
-import { getUserToken } from "@/utils/getUserToken";
 
 const ImageUpload = () => {
   const router = useRouter();
@@ -130,8 +128,7 @@ const ImageUpload = () => {
     );
 
     if (response.status === 200) {
-      if (price === 0) handleToken();
-      else router.push(`/event/${event_id}/payment`);
+      router.push(`/event/${eventId}/payment`);
     } else {
       console.error(`Failed with status code ${response.status}`);
       alert("Please try after sometime");

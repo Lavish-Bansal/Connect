@@ -28,6 +28,7 @@ const postEvent = async (req, res) => {
     const Time = req.body.time;
     const Desc = req.body.description;
     const Price = req.body.price;
+    const DisplayEvent = req.body.displayEvent;
     const Profile = req.body.profile;
     const Cover = req.body.cover;
     const Organizer = req.body.organizer;
@@ -50,6 +51,7 @@ const postEvent = async (req, res) => {
         time: Time,
         description: Desc,
         price: Price,
+        displayEvent: DisplayEvent,
         profile: Profile,
         cover: Cover,
         organizer: Organizer,
@@ -76,6 +78,7 @@ const postEvent = async (req, res) => {
                     time: Time,
                     description: Desc,
                     price: Price,
+                    displayEvent: DisplayEvent,
                     profile:
                         Profile == null
                             ? "https://i.etsystatic.com/15907303/r/il/c8acad/1940223106/il_794xN.1940223106_9tfg.jpg"

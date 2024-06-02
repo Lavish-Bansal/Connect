@@ -151,8 +151,13 @@ function UserDashboard() {
                         </div>
                         <div className="flex flex-row justify-between items-start mt-4">
                           <div className="px-2">
+<<<<<<< HEAD
                             {/* <p className="text-sm text-gray-800 font-bold">
                               {event.name.length > 30
+=======
+                            <p className="text-sm text-gray-800 font-bold">
+                              {event.name && event.name.length > 30
+>>>>>>> a5fe77730748e1a2c94558ebf898354f8a352191
                                 ? event.name.slice(0, 30) + "..."
                                 : event.name}
                             </p> */}

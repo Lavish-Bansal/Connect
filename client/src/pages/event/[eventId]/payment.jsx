@@ -26,32 +26,32 @@ export default function payment() {
   // Get Event-Id from URL
   const event_id = router.query.eventId;
 
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/event/getevent`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              event_id: event_id,
-            }),
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setName(data.name);
-          setPrice(data.price);
-        } else {
-          throw new Error(`${response.status} ${response.statusText}`);
-        }
-      } catch (error) {
-        console.error("Error fetching event data:", error.message);
-      }
-    };
+    useEffect(() => {
+        const fetchEvent = async () => {
+            try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/getevent`,
+                {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    event_id: event_id,
+                }),
+                }
+            );
+            if (response.ok) {
+                const data = await response.json();
+                setName(data.name);
+                setPrice(data.price);
+            } else {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+            } catch (error) {
+            console.error("Error fetching event data:", error.message);
+            }
+        };
 
     if (event_id) {
       fetchEvent();
