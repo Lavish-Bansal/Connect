@@ -18,6 +18,7 @@ function UserDashboard() {
         keyword: "",
         category: "",
         dateRange: "",
+        price: [0, 3000]
     });
 
     const fetchAllEvents = async () => {
@@ -72,12 +73,12 @@ function UserDashboard() {
             }
 
             // Check if price filter matches
-            // if (
-            //     event.price < filterOptions.price[0] ||
-            //     event.price > filterOptions.price[1]
-            // ) {
-            //     return false;
-            // }
+            if (
+                event.price < filterOptions.price[0] ||
+                event.price > filterOptions.price[1]
+            ) {
+                return false;
+            }
 
             return true;
         });
@@ -90,7 +91,7 @@ function UserDashboard() {
             keyword: "",
             category: "",
             dateRange: "",
-            price: [10, 3000],
+            price: [0, 3000],
         });
         setFilteredEvents(allEvents);
         setPopupFilterOpen(false);

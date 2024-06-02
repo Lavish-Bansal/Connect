@@ -58,8 +58,6 @@ const postEvent = async (req, res) => {
     organizer: Organizer,
   });
 
-  console.log(new_event);
-
   try {
     new_event.save((error, success) => {
       if (error) console.log(error);

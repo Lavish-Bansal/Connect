@@ -17,6 +17,7 @@ function UserDashboard() {
     keyword: "",
     category: "",
     dateRange: "",
+    price: [0, 3000]
   });
 
   const fetchAllEvents = async () => {
