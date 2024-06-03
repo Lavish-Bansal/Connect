@@ -304,7 +304,7 @@ export default function signup({ userIdCookie }) {
                 {/* REG-NUMBER */}
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-700">
-                    Enter VIT Registration Number
+                    Enter Registration Number
                   </label>
                   <input
                     type="text"

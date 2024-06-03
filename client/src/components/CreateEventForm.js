@@ -212,7 +212,6 @@ const CreateEvent = () => {
             >
               Subscribe (controlled)
             </Checkbox>
-            <span>Registration Required: {isSelected ? "true" : "false"}</span>
           </div>
           <div>
             <label
